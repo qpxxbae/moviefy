@@ -1,0 +1,39 @@
+{%extends '../base.html'%}
+
+{%block title%}{{movie.name}}{% endblock %}
+
+{%block content%}
+{% if user.is_authenticated %}
+<main>
+    <div class="movie-detail">
+            <div class="cover" style = "background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('{{movie.url_banner}}'); background-size: cover; background-position: center;">
+                <div class="container">
+                    <h1>{{movie.name}}</h1>
+                    <p>Director:<strong>{{movie.director}}</strong> Genre:<strong>{{movie.genre.name}}</strong></p>
+                    <p>Rating:<strong>{{movie.rating}}</strong></p>
+                    <p>{{movie.description}}</p>
+                    <a href = "#" class = "btn btn-light btn-lg">Watch</a>
+                </div>
+            </div>
+            <div id = "movie" class="movie">
+               <div class="container">
+                <iframe width="100%" height="500" src="{{ movie.url_movie}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+               </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% else %}
+<div class ="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="alert alert-warning" role="alert">
+        if you want to watch movies online, you have to register or log into your existing account
+      </div>
+      <a href="#" class = "btn btn-primary">Sign up</a>
+      <a href="#" class = "btn btn-outline-primary">Login</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock%}

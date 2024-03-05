@@ -1,0 +1,89 @@
+{%extends '../base.html'%}
+
+{%block title%}Top movies{% endblock %}
+
+{%block content%}
+{% if user.is_authenticated %}
+<main>
+<div class="movie-list">
+      <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+            <h1 class = 'title'>Top movies</h1>
+        </div>
+              <div class="col-md-6" style = "text-align: right;">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Filter
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Filter</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style ="text-align: left;">
+
+                          <form action="{%url 'movies_by_search_page'%}" class="mt-2 mb-4">
+                            <div class = "row">
+                            <div class="col-8">
+                              <input type="search" name = "query" class="form-control" placeholder="Movie name, description. . .">
+                            </div>
+                            <div class="col-4">
+                              <button class="btn btn-primary">Search</button>
+                            </form>
+                            </div>
+                          </div>
+
+                          <br>
+                          <h3 class="fs-5">Categories</h3>
+                          <a href = "{% url 'all_movies_page'%}" class = "btn btn-primary" style ="margin:5px;">All movies</a>
+                          {% for genre in genres %}
+                          <a href = "{% url 'movies_by_category_page' slug=genre.slug%}" class = "btn btn-primary" style ="margin:5px;">{{ genre.name }}</a>
+                          {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                </div>
+
+              </div>
+          </div>
+                </div>
+          </div>
+
+
+          <div class="owl-carousel owl-theme">
+            {% for movie in movies %}
+                <div class="card">
+                    <img src="{{movie.url_poster}}" alt="{{movie.name}}" class="card-img">
+                    <div class="card-body">
+                        <h3 class = 'card-title'> {{movie.name}}</h3>
+                        <p class = 'card-text'>{{movie.genre.name}}</p>
+                        <a href="{% url 'movie_detail_page' pk=movie.pk %}" class= "btn btn-primary">Watch</a>
+                    </div>
+                </div>
+            {% endfor%}
+          </div>
+        
+      </div>
+</div>
+</main>
+
+{% else %}
+<div class ="container mt-5 mb-5">
+  <div class="card">
+    <div class="card-body">
+      <div class="alert alert-warning" role="alert">
+        if you want to watch movies online, you have to register or log into your existing account
+      </div>
+      <a href="#" class = "btn btn-primary">Sign up</a>
+      <a href="#" class = "btn btn-outline-primary">Login</a>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock%}

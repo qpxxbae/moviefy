@@ -1,0 +1,43 @@
+{%extends '../base.html'%}
+
+{%block title%}Home page{% endblock %}
+
+{%block content%}
+
+<main>
+<div class="container">    
+    <div class="px-4 py-5 my-5 text-center">
+    <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+            <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm4 0v6h8V1zm8 8H4v6h8zM1 1v2h2V1zm2 3H1v2h2zM1 7v2h2V7zm2 3H1v2h2zm-2 3v2h2v-2zM15 1h-2v2h2zm-2 3v2h2V4zm2 3h-2v2h2zm-2 3v2h2v-2zm2 3h-2v2h2z"/>
+          </svg>
+    </div>
+   
+    <h1 class="display-5 fw-bold text-body-emphasis">Watch movies online</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">We're no strangers to love
+        You know the rules and so do I (do I)
+        A full commitment's what I'm thinking of
+        You wouldn't get this from any other guy
+        I just wanna tell you how I'm feeling
+        Gotta make you understand
+        Never gonna give you up
+        Never gonna let you down
+        Never gonna run around and desert you
+        Never gonna make you cry
+        Never gonna say goodbye
+        Never gonna tell a lie and hurt you</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'sign_up_page'%}" class="btn btn-primary btn-lg px-4 gap-3">Sign Up</a>
+        <a href="{% url 'login_page'%}" class="btn btn-outline-primary btn-lg px-4">Login</a>
+        {% else %}
+        <a href="{% url 'top_movies_page' %}" class="btn btn-outline-primary btn-lg px-4">Movies</a>
+        {%endif%}
+
+      </div>
+    </div>
+  </div></div>
+</main>
+
+{% endblock%}
